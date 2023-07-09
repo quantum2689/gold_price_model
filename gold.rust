@@ -1,0 +1,18 @@
+use reqwest::Client;
+use serde::Deserialize;
+
+#[derive(Deserialize)]
+struct GoldPrice {
+  price: f64,
+}
+
+fn main() {
+  let client = Client::new();
+  let url = "https://api.commodities-api.com/api/latest/GOLD";
+  let response = client.get(url).send().unwrap();
+  let gold_price: GoldPrice = response.json().unwrap();
+
+  // Print the predicted price of gold.
+  println!("{}", gold_price.price);
+}
+
